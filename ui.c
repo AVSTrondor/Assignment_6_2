@@ -53,6 +53,7 @@ void ui_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
     INT8U ch;
     static int i = 0;
     static int j = 0;
+
     switch(my_state){
     case 0:
         if(get_file(COM1, &ch))
@@ -60,41 +61,66 @@ void ui_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
                     gfprintf(COM1, "Press received: %c \n",ch);
                     if(ch == 's')
                     {
+
                         set_state(1);
                         gfprintf(COM1, "Status command: received \n");
+                        gfprintf(COM1, "Next State: 1 \n \n");
+                        wait(100);
                     }
         }
         break;
     case 1:
+
+        gfprintf(COM1, "Case 1 start \n");
+
         put_queue(Q_DEBUG,get_name(i),WAIT_FOREVER);
         put_queue(Q_DEBUG,get_condition(i),WAIT_FOREVER);
         put_queue(Q_DEBUG,get_sem(i),WAIT_FOREVER);
         put_queue(Q_DEBUG,get_timer(i),WAIT_FOREVER);
         put_queue(Q_DEBUG,get_state(i),WAIT_FOREVER);
         put_queue(Q_DEBUG,get_event(i),WAIT_FOREVER);
-        gfprintf(COM1, "I: %d \n", i);
+
+        gfprintf(COM1, "i: %d \n", i);
+
         i++;
+
         if(i >= 15){
-            gfprintf(COM1, "TESTINGGG \n");
+            gfprintf(COM1, "Next State: 2 \n \n");
+            wait(100);
             set_state(2);
             i=0;
+            break;
         }
+
+        gfprintf(COM1, "Case 1 done \n \n");
+        wait(100);
+
         break;
+
+
     case 2:
 
+        gfprintf(COM1, "Case 2 start \n");
+        wait(100);
         get_queue(Q_DEBUG, &ch, WAIT_FOREVER);
         gfprintf(COM1, "%d \n", ch);
         gfprintf(COM1, "J: %d \n", j);
+        wait(100);
+
+        gfprintf(COM1, "j: %d \n", j);
         j++;
         if(j >= 15){
+            gfprintf(COM1, "Next State: 0 \n \n");
+            wait(100);
             set_state(0);
+            break;
             j=0;}
+
+        gfprintf(COM1, "Case 2 done \n \n");
+        wait(100);
+
         break;
-
     }
-
-
-
 }
 
 void ui_key_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
