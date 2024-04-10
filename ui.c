@@ -72,16 +72,16 @@ void ui_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
 
 
     case 1:
-        gfprintf(COM1, "I: %d, "     ,i);
-        gfprintf(COM1, "Task: %d, "     ,get_name(i));
+        gfprintf(COM1, "I: %02d, "     ,i);
+        gfprintf(COM1, "Task: %02d, "     ,get_name(i));
         gfprintf(COM1, "Condition: %s, ",get_condition(i));
-        gfprintf(COM1, "Sem: %d, "      ,get_sem(i));
-        gfprintf(COM1, "Tim: %d, "      ,get_timer(i));
-        gfprintf(COM1, "State: %d, "    ,get_state(i));
-        gfprintf(COM1, "event: %d "     ,get_event(i));
+        gfprintf(COM1, "Sem: %02d, "      ,get_sem(i));
+        gfprintf(COM1, "Tim: %05d, "      ,get_timer(i));
+        gfprintf(COM1, "State: %02d, "    ,get_state(i));
+        gfprintf(COM1, "event: %01d "     ,get_event(i));
         gfprintf(COM1, " \n"   );
 
-        wait(75);
+        wait(80);
 
         if(i >= (MAX_TASKS-1)){
             set_state(0);
