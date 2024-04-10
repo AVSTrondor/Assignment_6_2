@@ -67,6 +67,104 @@ qcb poq[MAX_QUEUES];            // Pool of queues
 
 /*****************************   Functions   *******************************/
 
+
+const char* get_condition(INT8U task_nr)
+/*****************************************************************************
+*   Input    :
+*   Output   :
+*   Function :
+******************************************************************************/
+{
+    INT8U task_condition = pot[task_nr].condition;
+    if(task_condition == TASK_IDLE){
+        return "Idle";
+    }
+    else if(task_condition == TASK_READY){
+        return "Ready";
+    }
+    else if(task_condition == TASK_WAIT_FOR_TIMEOUT){
+        return "Waiting";
+    }
+    else if(task_condition == TASK_WAIT_FOR_SEMAPHORE){
+        return "Waiting";
+    }
+    else{
+        return "DEAD";
+    }
+
+}
+
+
+int get_name(INT8U task_nr)
+/*****************************************************************************
+*   Input    :
+*   Output   :
+*   Function :
+******************************************************************************/
+{
+    INT8U task_name = pot[task_nr].name;
+    return task_name;
+}
+
+int get_state(INT8U task_nr)
+/*****************************************************************************
+*   Input    :
+*   Output   :
+*   Function :
+******************************************************************************/
+{
+    INT8U task_state = pot[task_nr].state;
+    return task_state;
+}
+
+int get_event(INT8U task_nr)
+/*****************************************************************************
+*   Input    :
+*   Output   :
+*   Function :
+******************************************************************************/
+{
+    INT8U task_event = pot[task_nr].event;
+    return task_event;
+}
+
+int get_sem(INT8U task_nr)
+/*****************************************************************************
+*   Input    :
+*   Output   :
+*   Function :
+******************************************************************************/
+{
+    INT8U task_sem = pot[task_nr].sem;
+    return task_sem;
+}
+
+int get_timer(INT8U task_nr)
+/*****************************************************************************
+*   Input    :
+*   Output   :
+*   Function :
+******************************************************************************/
+{
+    INT8U task_timer = pot[task_nr].timer;
+    return task_timer;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 HANDLE retrieve_id(void)
 /*****************************************************************************
 *   Input    :
