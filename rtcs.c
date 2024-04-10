@@ -68,13 +68,13 @@ qcb poq[MAX_QUEUES];            // Pool of queues
 /*****************************   Functions   *******************************/
 
 
-/* const char* get_condition(INT8U task_nr)
+ const char* get_condition(INT8U task_nr)
 /*****************************************************************************
 *   Input    :
 *   Output   :
 *   Function :
 ******************************************************************************/
-/*{
+{
     INT8U task_condition = pot[task_nr].condition;
     if(task_condition == TASK_IDLE){
         return "Idle";
@@ -93,19 +93,7 @@ qcb poq[MAX_QUEUES];            // Pool of queues
     }
 
 }
-*/
 
-
-int get_condition(INT8U task_nr)
-/*****************************************************************************
-*   Input    :
-*   Output   :
-*   Function :
-******************************************************************************/
-{
-    INT8U task_condition = pot[task_nr].condition;
-    return task_condition;
-}
 
 int get_name(INT8U task_nr)
 /*****************************************************************************

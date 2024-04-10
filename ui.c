@@ -52,7 +52,7 @@ void ui_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
 {
     INT8U ch;
     static int i = 0;
-    static int j = 0;
+    /*static int j = 0;*/
 
     switch(my_state){
     case 0:
@@ -65,11 +65,36 @@ void ui_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
                         set_state(1);
                         gfprintf(COM1, "Status command: received \n");
                         gfprintf(COM1, "Next State: 1 \n \n");
-                        wait(100);
+                        wait(50);
                     }
         }
         break;
+
+
     case 1:
+        gfprintf(COM1, "I: %d, "     ,i);
+        gfprintf(COM1, "Task: %d, "     ,get_name(i));
+        gfprintf(COM1, "Condition: %s, ",get_condition(i));
+        gfprintf(COM1, "Sem: %d, "      ,get_sem(i));
+        gfprintf(COM1, "Tim: %d, "      ,get_timer(i));
+        gfprintf(COM1, "State: %d, "    ,get_state(i));
+        gfprintf(COM1, "event: %d "     ,get_event(i));
+        gfprintf(COM1, " \n"   );
+
+        wait(75);
+
+        if(i >= (MAX_TASKS-1)){
+            set_state(0);
+            i=0;
+        }
+        else{
+            i=i+1;
+        }
+
+
+        break;
+
+    /*case 8:
 
         gfprintf(COM1, "Case 1 start \n");
 
@@ -98,7 +123,7 @@ void ui_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
         break;
 
 
-    case 2:
+    case 9:
 
         gfprintf(COM1, "Case 2 start \n");
         wait(100);
@@ -119,7 +144,7 @@ void ui_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
         gfprintf(COM1, "Case 2 done \n \n");
         wait(100);
 
-        break;
+        break;*/
     }
 }
 
