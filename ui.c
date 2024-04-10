@@ -51,7 +51,8 @@ void ui_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
 ******************************************************************************/
 {
     INT8U ch;
-    int i;
+    static int i = 0;
+    static int j = 0;
     switch(my_state){
     case 0:
         if(get_file(COM1, &ch))
@@ -65,22 +66,29 @@ void ui_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
         }
         break;
     case 1:
-        for(i = 1; i <= MAX_TASKS; i++){
-            put_queue(Q_DEBUG,get_name(i),WAIT_FOREVER);
-            put_queue(Q_DEBUG,get_condition(i),WAIT_FOREVER);
-            put_queue(Q_DEBUG,get_sem(i),WAIT_FOREVER);
-            put_queue(Q_DEBUG,get_timer(i),WAIT_FOREVER);
-            put_queue(Q_DEBUG,get_state(i),WAIT_FOREVER);
-            put_queue(Q_DEBUG,get_event(i),WAIT_FOREVER);
+        put_queue(Q_DEBUG,get_name(i),WAIT_FOREVER);
+        put_queue(Q_DEBUG,get_condition(i),WAIT_FOREVER);
+        put_queue(Q_DEBUG,get_sem(i),WAIT_FOREVER);
+        put_queue(Q_DEBUG,get_timer(i),WAIT_FOREVER);
+        put_queue(Q_DEBUG,get_state(i),WAIT_FOREVER);
+        put_queue(Q_DEBUG,get_event(i),WAIT_FOREVER);
+        gfprintf(COM1, "I: %d \n", i);
+        i++;
+        if(i >= 15){
+            gfprintf(COM1, "TESTINGGG \n");
+            set_state(2);
+            i=0;
         }
-        set_state(2);
         break;
     case 2:
-        for(i = 1; i <= MAX_TASKS; i++){
-            get_queue(Q_DEBUG, &ch, WAIT_FOREVER);
-            gfprintf(COM1, "Task: %d, Condition: -- , Sem: --, Tim: -- , State: -- , Event: -- \n", ch);
-        }
-        set_state(0);
+
+        get_queue(Q_DEBUG, &ch, WAIT_FOREVER);
+        gfprintf(COM1, "%d \n", ch);
+        gfprintf(COM1, "J: %d \n", j);
+        j++;
+        if(j >= 15){
+            set_state(0);
+            j=0;}
         break;
 
     }
