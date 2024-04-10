@@ -51,18 +51,41 @@ void ui_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
 ******************************************************************************/
 {
     INT8U ch;
-    if(get_file(COM1, &ch)){
-            gfprintf(COM1, "Press received: %c \n",ch);
-            if(ch == 's'){
-                gfprintf(COM1, "Status command: received \n");
-                int i;
-                /*for(i = 1; i <= MAX_TASKS; i++){
-                gfprintf(COM1, "Task: %d, Condition: %s, Sem: %d, Tim: %d, State: %d, Event: %d \n", get_name(i),get_condition(i),get_sem(i),get_timer(i),get_state(i),get_event(i) );
-                }*/
-                gfprintf(COM1, "Task: %d, Condition: %s, Sem: %d, Tim: %d, State: %d, Event: %d \n", get_name(1),get_condition(1),get_sem(1),get_timer(1),get_state(1),get_event(1) );
-                gfprintf(COM1, "Task: %d, Condition: %s, Sem: %d, Tim: %d, State: %d, Event: %d \n", get_name(2),get_condition(2),get_sem(2),get_timer(2),get_state(2),get_event(2) );
-            }
+    int i;
+    switch(my_state){
+    case 0:
+        if(get_file(COM1, &ch))
+        {
+                    gfprintf(COM1, "Press received: %c \n",ch);
+                    if(ch == 's')
+                    {
+                        set_state(1);
+                        gfprintf(COM1, "Status command: received \n");
+                    }
+        }
+        break;
+    case 1:
+        for(i = 1; i <= MAX_TASKS; i++){
+            put_queue(Q_DEBUG,get_name(i),WAIT_FOREVER);
+            put_queue(Q_DEBUG,get_condition(i),WAIT_FOREVER);
+            put_queue(Q_DEBUG,get_sem(i),WAIT_FOREVER);
+            put_queue(Q_DEBUG,get_timer(i),WAIT_FOREVER);
+            put_queue(Q_DEBUG,get_state(i),WAIT_FOREVER);
+            put_queue(Q_DEBUG,get_event(i),WAIT_FOREVER);
+        }
+        set_state(2);
+        break;
+    case 2:
+        for(i = 1; i <= MAX_TASKS; i++){
+            get_queue(Q_DEBUG, &ch, WAIT_FOREVER);
+            gfprintf(COM1, "Task: %d, Condition: -- , Sem: --, Tim: -- , State: -- , Event: -- \n", ch);
+        }
+        set_state(0);
+        break;
+
     }
+
+
 
 }
 

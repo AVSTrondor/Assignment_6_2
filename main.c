@@ -30,6 +30,8 @@ int main(void)
   open_queue( Q_UART_RX );
   open_queue( Q_LCD );
   open_queue( Q_KEY );
+  open_queue( Q_DEBUG );
+
 
   start_task( TASK_RTC, rtc_task );
   start_task( TASK_DISPLAY_RTC, display_rtc_task );

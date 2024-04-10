@@ -56,6 +56,7 @@
 #define Q_UART_RX   USER_QUEUE+1
 #define Q_LCD       USER_QUEUE+2
 #define Q_KEY       USER_QUEUE+3
+#define Q_DEBUG     USER_QUEUE+4
 
 
 #endif /* _TMODEL_H_ */

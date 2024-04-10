@@ -68,13 +68,13 @@ qcb poq[MAX_QUEUES];            // Pool of queues
 /*****************************   Functions   *******************************/
 
 
-const char* get_condition(INT8U task_nr)
+/* const char* get_condition(INT8U task_nr)
 /*****************************************************************************
 *   Input    :
 *   Output   :
 *   Function :
 ******************************************************************************/
-{
+/*{
     INT8U task_condition = pot[task_nr].condition;
     if(task_condition == TASK_IDLE){
         return "Idle";
@@ -93,7 +93,19 @@ const char* get_condition(INT8U task_nr)
     }
 
 }
+*/
 
+
+int get_condition(INT8U task_nr)
+/*****************************************************************************
+*   Input    :
+*   Output   :
+*   Function :
+******************************************************************************/
+{
+    INT8U task_condition = pot[task_nr].condition;
+    return task_condition;
+}
 
 int get_name(INT8U task_nr)
 /*****************************************************************************
@@ -283,6 +295,9 @@ INT8U id;
     return( result );
 }
 
+
+
+
 BOOLEAN put_queue( id, ch, timeout )
 INT8U  id;
 INT8U  ch;
@@ -306,6 +321,8 @@ INT16U timeout;
   return( result );
 }
 
+
+
 BOOLEAN get_queue( id, pch, timeout )
 INT8U  id;
 INT8U *pch;
@@ -328,6 +345,10 @@ INT16U timeout;
   }
   return( result );
 }
+
+
+
+
 
 
 extern HANDLE start_task( INT8U name, void (*tf)(INT8U, INT8U, INT8U, INT8U) )

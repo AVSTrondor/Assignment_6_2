@@ -59,7 +59,7 @@ typedef unsigned char  SEM;        //
 
 /*****************************   Functions   *******************************/
 
-extern const char* get_condition(INT8U task_nr);
+extern int get_condition(INT8U task_nr);
 /*****************************************************************************
 *   Input    : task number / id
 *   Output   : name of task
