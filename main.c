@@ -40,7 +40,7 @@ int main(void)
   start_task( TASK_UART_RX, uart_rx_task );
   start_task( TASK_UI, ui_task );
   start_task( TASK_KEY, key_task );
-  /*start_task( TASK_UI_KEY, ui_key_task );*/
+  start_task( TASK_UI_KEY, ui_key_task );
 
 
   schedule();

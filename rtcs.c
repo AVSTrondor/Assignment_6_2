@@ -86,7 +86,7 @@ qcb poq[MAX_QUEUES];            // Pool of queues
         return "Waiting";
     }
     else{
-        return "DEAD";
+        return "DEAD   ";
     }
 
 }
@@ -100,6 +100,9 @@ int get_task_name(INT8U task_nr)
 ******************************************************************************/
 {
     INT8U task_name = pot[task_nr].name;
+    if(task_name == 129){
+        task_name = 0;
+    }
     return task_name;
 }
 
@@ -156,6 +159,122 @@ BOOLEAN queue_empty(INT8U id){
 ******************************************************************************/
     return(poq[id].tail==poq[id].head);
 }
+
+
+
+
+
+
+int get_sem_condition(INT8U sem_nr)
+/*****************************************************************************
+*   Input    :
+*   Output   :
+*   Function :
+******************************************************************************/
+{
+    INT8U sem_condition = pos[sem_nr].condition;
+    return sem_condition;
+}
+
+int get_sem_type(INT8U sem_nr)
+/*****************************************************************************
+*   Input    :
+*   Output   :
+*   Function :
+******************************************************************************/
+{
+    INT8U sem_type = pos[sem_nr].type;
+    return sem_type;
+}
+
+int get_sem_count(INT8U sem_nr)
+/*****************************************************************************
+*   Input    :
+*   Output   :
+*   Function :
+******************************************************************************/
+{
+    INT8U sem_count = pos[sem_nr].count;
+    return sem_count;
+}
+
+
+
+
+
+
+int get_queue_head(INT8U sem_nr)
+/*****************************************************************************
+*   Input    :
+*   Output   :
+*   Function :
+******************************************************************************/
+{
+    INT8U q_head = poq[sem_nr].head;
+    return q_head;
+}
+
+int get_queue_tail(INT8U sem_nr)
+/*****************************************************************************
+*   Input    :
+*   Output   :
+*   Function :
+******************************************************************************/
+{
+    INT8U q_tail = poq[sem_nr].tail;
+    return q_tail;
+}
+
+int  get_queue_not_full(INT8U sem_nr)
+/*****************************************************************************
+*   Input    :
+*   Output   :
+*   Function :
+******************************************************************************/
+{
+    INT8U q_n_full = poq[sem_nr].q_not_full;
+    return q_n_full;
+}
+
+int get_queue_not_empty(INT8U sem_nr)
+/*****************************************************************************
+*   Input    :
+*   Output   :
+*   Function :
+******************************************************************************/
+{
+    INT8U q_n_empty = poq[sem_nr].q_not_empty;
+    return q_n_empty;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

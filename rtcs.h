@@ -60,46 +60,33 @@ typedef unsigned char  SEM;        //
 /*****************************   Functions   *******************************/
 
 extern const char* get_task_condition(INT8U task_nr);
-/*****************************************************************************
-*   Input    : task number / id
-*   Output   : name of task
-*   Function : For debugging
-******************************************************************************/
 
 extern int get_task_name(INT8U task_nr);
-/*****************************************************************************
-*   Input    : -
-*   Output   : Number of tasks
-*   Function : For debugging
-******************************************************************************/
 
 extern int get_task_state(INT8U task_nr);
-/*****************************************************************************
-*   Input    : task number / id
-*   Output   : name of task
-*   Function : For debugging
-******************************************************************************/
 
 extern int get_task_event(INT8U task_nr);
-/*****************************************************************************
-*   Input    : task number / id
-*   Output   : name of task
-*   Function : For debugging
-******************************************************************************/
 
 extern int get_task_sem(INT8U task_nr);
-/*****************************************************************************
-*   Input    : -
-*   Output   : Number of tasks
-*   Function : For debugging
-******************************************************************************/
 
 extern int get_task_timer(INT8U task_nr);
-/*****************************************************************************
-*   Input    : task number / id
-*   Output   : name of task
-*   Function : For debugging
-******************************************************************************/
+
+
+extern int get_sem_condition(INT8U sem_nr);
+
+extern int get_sem_type(INT8U sem_nr);
+
+extern int get_sem_count(INT8U sem_nr);
+
+
+extern int get_queue_head(INT8U sem_nr);
+
+extern int get_queue_tail(INT8U sem_nr);
+
+extern int  get_queue_not_full(INT8U sem_nr);
+
+extern int get_queue_not_empty(INT8U sem_nr);
+
 
 
 

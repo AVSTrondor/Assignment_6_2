@@ -79,13 +79,13 @@ void ui_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
     case 1:
         if(queue_empty(Q_UART_TX)){
             if (get_task_sem(i) == 0 && get_task_timer(i) == 0) {
-                    gfprintf(COM1, "TASK: %02d, Condition: %s,                      State: %02d, Event: %01d \r\n", get_task_name(i), get_task_condition(i), get_task_state(i), get_task_event(i));
+                    gfprintf(COM1, "NR: %02d, TASK: %02d, Condition: %s,                      State: %02d, Event: %01d \r\n",i, get_task_name(i), get_task_condition(i), get_task_state(i), get_task_event(i));
                 } else if (get_task_timer(i) == 0) {
-                    gfprintf(COM1, "TASK: %02d, Condition: %s, Sem: %02d,             State: %02d, Event: %01d \r\n", get_task_name(i), get_task_condition(i), get_task_sem(i), get_task_state(i), get_task_event(i));
+                    gfprintf(COM1, "NR: %02d, TASK: %02d, Condition: %s, Sem: %02d,             State: %02d, Event: %01d \r\n",i, get_task_name(i), get_task_condition(i), get_task_sem(i), get_task_state(i), get_task_event(i));
                 } else if (get_task_sem(i) == 0) {
-                    gfprintf(COM1, "TASK: %02d, Condition: %s,          Tim: %05d, State: %02d, Event: %01d \r\n", get_task_name(i), get_task_condition(i), get_task_timer(i), get_task_state(i), get_task_event(i));
+                    gfprintf(COM1, "NR: %02d, TASK: %02d, Condition: %s,          Tim: %05d, State: %02d, Event: %01d \r\n",i, get_task_name(i), get_task_condition(i), get_task_timer(i), get_task_state(i), get_task_event(i));
                 } else {
-                    gfprintf(COM1, "TASK: %02d, Condition: %s, Sem: %02d, Tim: %05d, State: %02d, Event: %01d \r\n", get_task_name(i), get_task_condition(i), get_task_sem(i), get_task_timer(i), get_task_state(i), get_task_event(i));
+                    gfprintf(COM1, "NR: %02d, TASK: %02d, Condition: %s, Sem: %02d, Tim: %05d, State: %02d, Event: %01d \r\n",i, get_task_name(i), get_task_condition(i), get_task_sem(i), get_task_timer(i), get_task_state(i), get_task_event(i));
                 }
 
             if(i >= (MAX_TASKS-1)){
@@ -100,7 +100,49 @@ void ui_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
         break;
 
 
-    }
+    case 2:
+        if(queue_empty(Q_UART_TX)){
+            if(get_sem_count(i)==0){
+
+            }
+            else{
+                gfprintf(COM1, "NR: %02d, Condition: %02d, Type %02d, Count: %4d \r\n",i, get_sem_condition(i),get_sem_type(i),get_sem_count(i));
+            }
+            if(i >= (MAX_SEMAPHORES-1)){
+                set_state(0);
+                i=0;
+            }
+            else{
+                i=i+1;
+            }
+        }
+
+        break;
+
+    case 3:
+            if(queue_empty(Q_UART_TX)){
+
+                if(get_queue_not_full(i)==0 && get_queue_not_empty(i)==0){
+                    gfprintf(COM1, "NR: %02d, Head: %4d, Tail %4d \r\n",i,get_queue_head(i),get_queue_tail(i));
+                }
+                else{
+                    gfprintf(COM1, "NR: %02d, Head: %4d, Tail %4d, Queue not full: %02d, Queue not empty: %02d \r\n",i,get_queue_head(i),get_queue_tail(i),get_queue_not_full(i),get_queue_not_empty(i));
+                }
+
+                if(i >= (MAX_QUEUES-1)){
+                    set_state(0);
+                    i=0;
+                }
+                else{
+                    i=i+1;
+                }
+            }
+
+            break;
+
+        }
+
+
 }
 
 void ui_key_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
