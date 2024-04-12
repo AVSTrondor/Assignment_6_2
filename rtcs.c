@@ -68,7 +68,7 @@ qcb poq[MAX_QUEUES];            // Pool of queues
 /*****************************   Functions   *******************************/
 
 
- const char* get_condition(INT8U task_nr)
+ const char* get_task_condition(INT8U task_nr)
 /*****************************************************************************
 *   Input    :
 *   Output   :
@@ -76,11 +76,8 @@ qcb poq[MAX_QUEUES];            // Pool of queues
 ******************************************************************************/
 {
     INT8U task_condition = pot[task_nr].condition;
-    if(task_condition == TASK_IDLE){
-        return "Idle";
-    }
-    else if(task_condition == TASK_READY){
-        return "Ready";
+    if(task_condition == TASK_READY){
+        return "Ready  ";
     }
     else if(task_condition == TASK_WAIT_FOR_TIMEOUT){
         return "Waiting";
@@ -95,7 +92,7 @@ qcb poq[MAX_QUEUES];            // Pool of queues
 }
 
 
-int get_name(INT8U task_nr)
+int get_task_name(INT8U task_nr)
 /*****************************************************************************
 *   Input    :
 *   Output   :
@@ -106,7 +103,7 @@ int get_name(INT8U task_nr)
     return task_name;
 }
 
-int get_state(INT8U task_nr)
+int get_task_state(INT8U task_nr)
 /*****************************************************************************
 *   Input    :
 *   Output   :
@@ -117,7 +114,7 @@ int get_state(INT8U task_nr)
     return task_state;
 }
 
-int get_event(INT8U task_nr)
+int get_task_event(INT8U task_nr)
 /*****************************************************************************
 *   Input    :
 *   Output   :
@@ -128,7 +125,7 @@ int get_event(INT8U task_nr)
     return task_event;
 }
 
-int get_sem(INT8U task_nr)
+int get_task_sem(INT8U task_nr)
 /*****************************************************************************
 *   Input    :
 *   Output   :
@@ -139,7 +136,7 @@ int get_sem(INT8U task_nr)
     return task_sem;
 }
 
-int get_timer(INT8U task_nr)
+int get_task_timer(INT8U task_nr)
 /*****************************************************************************
 *   Input    :
 *   Output   :
@@ -151,9 +148,14 @@ int get_timer(INT8U task_nr)
 }
 
 
-
-
-
+BOOLEAN queue_empty(INT8U id){
+/*****************************************************************************
+*   Input    :
+*   Output   :
+*   Function :
+******************************************************************************/
+    return(poq[id].tail==poq[id].head);
+}
 
 
 

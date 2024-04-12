@@ -56,95 +56,50 @@ void ui_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
 
     switch(my_state){
     case 0:
-        if(get_file(COM1, &ch))
-        {
-                    gfprintf(COM1, "Press received: %c \n",ch);
-                    if(ch == 's')
-                    {
+        if(get_file(COM1, &ch)){
 
+                    gfprintf(COM1, "Press received: %c \n",ch);
+
+                    if(ch == 'T'){
                         set_state(1);
-                        gfprintf(COM1, "Status command: received \n");
-                        gfprintf(COM1, "Next State: 1 \n \n");
-                        wait(50);
+                        gfprintf(COM1, "Command: TASK STATUS  \n");
+
+                    } else if(ch == 'S'){
+                        set_state(2);
+                        gfprintf(COM1, "Command: SEM STATUS \n");
+
+                    }else if(ch == 'Q'){
+                        set_state(3);
+                        gfprintf(COM1, "Command: QUEUE STATUS \n");
+
                     }
         }
         break;
 
-
     case 1:
-        gfprintf(COM1, "I: %02d, "     ,i);
-        gfprintf(COM1, "Task: %02d, "     ,get_name(i));
-        gfprintf(COM1, "Condition: %s, ",get_condition(i));
-        gfprintf(COM1, "Sem: %02d, "      ,get_sem(i));
-        gfprintf(COM1, "Tim: %05d, "      ,get_timer(i));
-        gfprintf(COM1, "State: %02d, "    ,get_state(i));
-        gfprintf(COM1, "event: %01d "     ,get_event(i));
-        gfprintf(COM1, " \n"   );
+        if(queue_empty(Q_UART_TX)){
+            if (get_task_sem(i) == 0 && get_task_timer(i) == 0) {
+                    gfprintf(COM1, "TASK: %02d, Condition: %s,                      State: %02d, Event: %01d \r\n", get_task_name(i), get_task_condition(i), get_task_state(i), get_task_event(i));
+                } else if (get_task_timer(i) == 0) {
+                    gfprintf(COM1, "TASK: %02d, Condition: %s, Sem: %02d,             State: %02d, Event: %01d \r\n", get_task_name(i), get_task_condition(i), get_task_sem(i), get_task_state(i), get_task_event(i));
+                } else if (get_task_sem(i) == 0) {
+                    gfprintf(COM1, "TASK: %02d, Condition: %s,          Tim: %05d, State: %02d, Event: %01d \r\n", get_task_name(i), get_task_condition(i), get_task_timer(i), get_task_state(i), get_task_event(i));
+                } else {
+                    gfprintf(COM1, "TASK: %02d, Condition: %s, Sem: %02d, Tim: %05d, State: %02d, Event: %01d \r\n", get_task_name(i), get_task_condition(i), get_task_sem(i), get_task_timer(i), get_task_state(i), get_task_event(i));
+                }
 
-        wait(80);
-
-        if(i >= (MAX_TASKS-1)){
-            set_state(0);
-            i=0;
+            if(i >= (MAX_TASKS-1)){
+                set_state(0);
+                i=0;
+            }
+            else{
+                i=i+1;
+            }
         }
-        else{
-            i=i+1;
-        }
-
-
-        break;
-
-    /*case 8:
-
-        gfprintf(COM1, "Case 1 start \n");
-
-        put_queue(Q_DEBUG,get_name(i),WAIT_FOREVER);
-        put_queue(Q_DEBUG,get_condition(i),WAIT_FOREVER);
-        put_queue(Q_DEBUG,get_sem(i),WAIT_FOREVER);
-        put_queue(Q_DEBUG,get_timer(i),WAIT_FOREVER);
-        put_queue(Q_DEBUG,get_state(i),WAIT_FOREVER);
-        put_queue(Q_DEBUG,get_event(i),WAIT_FOREVER);
-
-        gfprintf(COM1, "i: %d \n", i);
-
-        i++;
-
-        if(i >= 15){
-            gfprintf(COM1, "Next State: 2 \n \n");
-            wait(100);
-            set_state(2);
-            i=0;
-            break;
-        }
-
-        gfprintf(COM1, "Case 1 done \n \n");
-        wait(100);
 
         break;
 
 
-    case 9:
-
-        gfprintf(COM1, "Case 2 start \n");
-        wait(100);
-        get_queue(Q_DEBUG, &ch, WAIT_FOREVER);
-        gfprintf(COM1, "%d \n", ch);
-        gfprintf(COM1, "J: %d \n", j);
-        wait(100);
-
-        gfprintf(COM1, "j: %d \n", j);
-        j++;
-        if(j >= 15){
-            gfprintf(COM1, "Next State: 0 \n \n");
-            wait(100);
-            set_state(0);
-            break;
-            j=0;}
-
-        gfprintf(COM1, "Case 2 done \n \n");
-        wait(100);
-
-        break;*/
     }
 }
 
