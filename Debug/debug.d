@@ -11,10 +11,15 @@ debug.obj: C:/Users/Andreas\ Skeem/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/incl
 debug.obj: C:/Users/Andreas\ Skeem/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_types.h
 debug.obj: C:/Users/Andreas\ Skeem/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_stdint.h
 debug.obj: C:/Users/Andreas\ Skeem/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/sys/_stdint.h
-debug.obj: C:/Users/Andreas\ Skeem/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdio.h
-debug.obj: C:/Users/Andreas\ Skeem/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdarg.h
-debug.obj: ../emp_type.h
 debug.obj: ../tm4c123gh6pm.h
+debug.obj: ../emp_type.h
+debug.obj: ../gpio.h
+debug.obj: ../systick.h
+debug.obj: ../tmodel.h
+debug.obj: ../rtcs.h
+debug.obj: ../debug.h
+debug.obj: ../rtc.h
+debug.obj: ../string.h
 debug.obj: ../file.h
 
 ../debug.c:
@@ -39,13 +44,23 @@ C:/Users/Andreas\ Skeem/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine
 
 C:/Users/Andreas\ Skeem/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/sys/_stdint.h:
 
-C:/Users/Andreas\ Skeem/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdio.h:
-
-C:/Users/Andreas\ Skeem/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdarg.h:
+../tm4c123gh6pm.h:
 
 ../emp_type.h:
 
-../tm4c123gh6pm.h:
+../gpio.h:
+
+../systick.h:
+
+../tmodel.h:
+
+../rtcs.h:
+
+../debug.h:
+
+../rtc.h:
+
+../string.h:
 
 ../file.h:
 

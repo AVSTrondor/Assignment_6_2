@@ -28,7 +28,7 @@
 #define TASK_DISPLAY_RTC USER_TASK+1
 #define TASK_LCD         USER_TASK+2
 #define TASK_UART_RX     USER_TASK+3
-#define TASK_UI          USER_TASK+4
+#define TASK_DEBUG       USER_TASK+4
 #define TASK_UART_TX     USER_TASK+5
 #define TASK_KEY         USER_TASK+6
 #define TASK_UI_KEY      USER_TASK+7

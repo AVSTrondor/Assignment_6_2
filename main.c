@@ -1,3 +1,4 @@
+#include <debug.h>
 #include <stdint.h>
 #include "tm4c123gh6pm.h"
 #include "emp_type.h"
@@ -8,7 +9,6 @@
 #include "rtc.h"
 #include "lcd.h"
 #include "uart.h"
-#include "ui.h"
 #include "file.h"
 #include "key.h"
 
@@ -38,7 +38,7 @@ int main(void)
   start_task( TASK_LCD, lcd_task );
   start_task( TASK_UART_TX, uart_tx_task );
   start_task( TASK_UART_RX, uart_rx_task );
-  start_task( TASK_UI, ui_task );
+  start_task( TASK_DEBUG, debug_task );
   start_task( TASK_KEY, key_task );
   start_task( TASK_UI_KEY, ui_key_task );
 

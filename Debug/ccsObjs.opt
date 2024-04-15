@@ -1,3 +1,4 @@
+"./debug.obj"
 "./file.obj"
 "./gpio.obj"
 "./key.obj"

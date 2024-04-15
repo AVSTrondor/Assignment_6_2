@@ -27,12 +27,8 @@
 #include "systick.h"
 #include "ui.h"
 #include "rtc.h"
-#include "rtcs.h"
 #include "string.h"
-
-
 /*****************************    Defines    *******************************/
-
 
 /*****************************   Constants   *******************************/
 
@@ -50,99 +46,26 @@ void ui_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)
 *   Function :
 ******************************************************************************/
 {
-    INT8U ch;
-    static int i = 0;
-    /*static int j = 0;*/
+  INT8U ch;
 
-    switch(my_state){
-    case 0:
-        if(get_file(COM1, &ch)){
-
-                    gfprintf(COM1, "Press received: %c \n",ch);
-
-                    if(ch == 'T'){
-                        set_state(1);
-                        gfprintf(COM1, "Command: TASK STATUS  \n");
-
-                    } else if(ch == 'S'){
-                        set_state(2);
-                        gfprintf(COM1, "Command: SEM STATUS \n");
-
-                    }else if(ch == 'Q'){
-                        set_state(3);
-                        gfprintf(COM1, "Command: QUEUE STATUS \n");
-
-                    }
-        }
-        break;
-
-    case 1:
-        if(queue_empty(Q_UART_TX)){
-            if (get_task_sem(i) == 0 && get_task_timer(i) == 0) {
-                    gfprintf(COM1, "NR: %02d, TASK: %02d, Condition: %s,                      State: %02d, Event: %01d \r\n",i, get_task_name(i), get_task_condition(i), get_task_state(i), get_task_event(i));
-                } else if (get_task_timer(i) == 0) {
-                    gfprintf(COM1, "NR: %02d, TASK: %02d, Condition: %s, Sem: %02d,             State: %02d, Event: %01d \r\n",i, get_task_name(i), get_task_condition(i), get_task_sem(i), get_task_state(i), get_task_event(i));
-                } else if (get_task_sem(i) == 0) {
-                    gfprintf(COM1, "NR: %02d, TASK: %02d, Condition: %s,          Tim: %05d, State: %02d, Event: %01d \r\n",i, get_task_name(i), get_task_condition(i), get_task_timer(i), get_task_state(i), get_task_event(i));
-                } else {
-                    gfprintf(COM1, "NR: %02d, TASK: %02d, Condition: %s, Sem: %02d, Tim: %05d, State: %02d, Event: %01d \r\n",i, get_task_name(i), get_task_condition(i), get_task_sem(i), get_task_timer(i), get_task_state(i), get_task_event(i));
-                }
-
-            if(i >= (MAX_TASKS-1)){
-                set_state(0);
-                i=0;
-            }
-            else{
-                i=i+1;
-            }
-        }
-
-        break;
-
-
-    case 2:
-        if(queue_empty(Q_UART_TX)){
-            if(get_sem_count(i)==0){
-
-            }
-            else{
-                gfprintf(COM1, "NR: %02d, Condition: %02d, Type %02d, Count: %4d \r\n",i, get_sem_condition(i),get_sem_type(i),get_sem_count(i));
-            }
-            if(i >= (MAX_SEMAPHORES-1)){
-                set_state(0);
-                i=0;
-            }
-            else{
-                i=i+1;
-            }
-        }
-
-        break;
-
-    case 3:
-            if(queue_empty(Q_UART_TX)){
-
-                if(get_queue_not_full(i)==0 && get_queue_not_empty(i)==0){
-                    gfprintf(COM1, "NR: %02d, Head: %4d, Tail %4d \r\n",i,get_queue_head(i),get_queue_tail(i));
-                }
-                else{
-                    gfprintf(COM1, "NR: %02d, Head: %4d, Tail %4d, Queue not full: %02d, Queue not empty: %02d \r\n",i,get_queue_head(i),get_queue_tail(i),get_queue_not_full(i),get_queue_not_empty(i));
-                }
-
-                if(i >= (MAX_QUEUES-1)){
-                    set_state(0);
-                    i=0;
-                }
-                else{
-                    i=i+1;
-                }
-            }
-
-            break;
-
-        }
-
-
+  //if( get_queue( Q_UART_RX, &ch, WAIT_FOREVER ))
+  if( get_file( COM1, &ch ))                                                                // if char received from uart (COM1)
+  {
+    if( i < 128 )                                                                           // if our buffer is not full
+      InBuf[i++] = ch;                                                                      // store char in buffer
+    put_file( COM1, ch );                                                                   // put char back to uart (write char to terminal)
+    if( ch == '\r' )                                                                        // if the char is 'Enter' (Return)
+    {
+      if(( InBuf[0] == '1' ) && ( i >= 7 ))                                                 // if the first char in buffer is '1' and there are at least 8 chars
+      {
+          set_hour( (InBuf[1]-'0')*10+InBuf[2]-'0');                                        // use the chars in buffer to set the clock
+          set_min( (InBuf[3]-'0')*10+InBuf[4]-'0');
+          set_sec( (InBuf[5]-'0')*10+InBuf[6]-'0');
+      }
+      gfprintf( COM1, "%c%02d%02d%02d\r\n", InBuf[0], get_hour(), get_min(), get_sec() );   // print the current time to uart
+      i = 0;
+    }
+  }
 }
 
 void ui_key_task(INT8U my_id, INT8U my_state, INT8U event, INT8U data)

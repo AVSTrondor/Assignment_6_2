@@ -17,12 +17,18 @@
 *
 *****************************************************************************/
 
-#ifndef _UI_H
-  #define _UI_H
+#ifndef _DEBUG_H
+  #define _DEBUG_H
 
 /***************************** Include files *******************************/
 
 /*****************************    Defines    *******************************/
+
+#define DEBUG_WAIT 0
+#define DEBUG_TASK 1
+#define DEBUG_SEM  2
+#define DEBUG_Q    3
+
 
 /********************** External declaration of Variables ******************/
 
@@ -30,7 +36,7 @@
 
 /*************************  Function interfaces ****************************/
 
-void ui_task(INT8U, INT8U, INT8U, INT8U);
+void debug_task(INT8U, INT8U, INT8U, INT8U);
 /*****************************************************************************
 *   Input    : -
 *   Output   : -
@@ -45,5 +51,7 @@ void ui_key_task(INT8U, INT8U, INT8U, INT8U);
 
 
 /****************************** End Of Module *******************************/
+
+
 #endif
 

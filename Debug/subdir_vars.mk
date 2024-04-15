@@ -9,6 +9,7 @@ CMD_SRCS += \
 ../tm4c123gh6pm.cmd 
 
 C_SRCS += \
+../debug.c \
 ../file.c \
 ../gpio.c \
 ../key.c \
@@ -23,6 +24,7 @@ C_SRCS += \
 ../ui.c 
 
 C_DEPS += \
+./debug.d \
 ./file.d \
 ./gpio.d \
 ./key.d \
@@ -37,6 +39,7 @@ C_DEPS += \
 ./ui.d 
 
 OBJS += \
+./debug.obj \
 ./file.obj \
 ./gpio.obj \
 ./key.obj \
@@ -51,6 +54,7 @@ OBJS += \
 ./ui.obj 
 
 OBJS__QUOTED += \
+"debug.obj" \
 "file.obj" \
 "gpio.obj" \
 "key.obj" \
@@ -65,6 +69,7 @@ OBJS__QUOTED += \
 "ui.obj" 
 
 C_DEPS__QUOTED += \
+"debug.d" \
 "file.d" \
 "gpio.d" \
 "key.d" \
@@ -79,6 +84,7 @@ C_DEPS__QUOTED += \
 "ui.d" 
 
 C_SRCS__QUOTED += \
+"../debug.c" \
 "../file.c" \
 "../gpio.c" \
 "../key.c" \

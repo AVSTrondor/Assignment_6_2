@@ -10,6 +10,7 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
+"./debug.obj" \
 "./file.obj" \
 "./gpio.obj" \
 "./key.obj" \
@@ -152,8 +153,8 @@ Assignment_6_2.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)
-	-$(RM) "file.obj" "gpio.obj" "key.obj" "lcd.obj" "main.obj" "rtc.obj" "rtcs.obj" "string.obj" "systick.obj" "tm4c123gh6pm_startup_ccs.obj" "uart.obj" "ui.obj" 
-	-$(RM) "file.d" "gpio.d" "key.d" "lcd.d" "main.d" "rtc.d" "rtcs.d" "string.d" "systick.d" "tm4c123gh6pm_startup_ccs.d" "uart.d" "ui.d" 
+	-$(RM) "debug.obj" "file.obj" "gpio.obj" "key.obj" "lcd.obj" "main.obj" "rtc.obj" "rtcs.obj" "string.obj" "systick.obj" "tm4c123gh6pm_startup_ccs.obj" "uart.obj" "ui.obj" 
+	-$(RM) "debug.d" "file.d" "gpio.d" "key.d" "lcd.d" "main.d" "rtc.d" "rtcs.d" "string.d" "systick.d" "tm4c123gh6pm_startup_ccs.d" "uart.d" "ui.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
